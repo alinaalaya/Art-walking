@@ -8,35 +8,37 @@
     :root {
       --green-main: #2f8b3c;
       --green-main-dark: #1e6126;
-      --green-soft: #e2f6e6;
-      --green-bg: #f2faf4;
+      --green-soft: #e7f3e9;
+      --green-bg: #f5f8f3;
 
-      --bg-page: #f5f7f4;
+      --bg-page: #f6f7f5;
       --bg-card: #ffffff;
 
       --text-main: #222525;
-      --text-muted: #6f7377;
-      --text-green: #246b30;
+      --text-muted: #74797d;
+      --text-green: #236133;
       --text-blue: #245d9c;
 
       --border-soft: #dde3d7;
-      --shadow-soft: 0 18px 45px rgba(0,0,0,0.08);
+      --shadow-soft: 0 14px 40px rgba(0,0,0,0.06);
 
       --radius-big: 18px;
       --radius-med: 12px;
 
-      --chip-blue-soft: #f0f5ff;
-      --chip-orange: #ffe9d3;
-      --chip-violet: #efe5ff;
-      --chip-green: #e3f5df;
+      --chip-time-bg: #ecf7ed;
+      --chip-time-text: #2d7b3a;
 
-      --card-blue: #f4f7ff;
-      --card-peach: #fff6ea;
-      --card-green: #effbf0;
-      --card-violet: #f7f2ff;
+      --band-blue: #eaf2ff;
+      --band-orange: #ffe9d3;
+      --band-yellow: #fff7da;
+      --band-violet: #f3e9ff;
 
-      --notice-bg: #fff5cc;
-      --notice-border: #f2c46b;
+      --card-observation: #f8fbff;
+      --card-emotion: #fff7f4;
+      --card-attention: #f4fbf5;
+      --card-silence: #fbf5ff;
+      --card-memory: #f6f2ff;
+      --card-nature: #f3fff6;
     }
 
     * { box-sizing: border-box; }
@@ -44,19 +46,19 @@
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top left,#e4f0e7 0,#f7f7f5 40%,#f4f5f1 100%);
+      background: var(--bg-page);
       color: var(--text-main);
     }
 
     /* HERO */
 
     header.hero {
-      background:#2f8b3c;
+      background: linear-gradient(135deg,#2f8b3c,#297134);
       color:#fff;
-      padding:46px 18px 38px;
+      padding:40px 18px 28px;
       border-bottom-left-radius:32px;
       border-bottom-right-radius:32px;
-      box-shadow:0 26px 70px rgba(0,0,0,0.22);
+      box-shadow:0 24px 60px rgba(0,0,0,0.22);
       position:relative;
       overflow:hidden;
     }
@@ -76,31 +78,32 @@
     }
 
     .hero-logo {
-      width:68px;
-      height:68px;
+      width:64px;
+      height:64px;
       border-radius:18px;
       background: radial-gradient(circle at 25% 20%,#fffbe8 0,#f0cc7a 40%,#946230 100%);
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size:34px;
+      font-size:32px;
       box-shadow:0 0 0 2px rgba(255,255,255,0.7);
       grid-row:1 / span 2;
     }
 
     .hero-title {
-      font-size:34px;
-      font-weight:780;
+      font-size:32px;
+      font-weight:720;
       margin:0;
       letter-spacing:0.03em;
     }
 
     .hero-subtitle {
       margin:2px 0 0;
-      font-size:17px;
-      max-width:780px;
-      line-height:1.8;
-      font-weight:500;
+      font-size:15px;
+      max-width:760px;
+      line-height:1.7;
+      font-weight:450;
+      opacity:0.95;
     }
 
     /* NAV UNDER HERO */
@@ -111,18 +114,20 @@
       padding: 18px 18px 0;
     }
     .tabs-strip-label {
-      font-size:15px;
-      font-weight:650;
-      color:#3b3f3f;
-      margin-bottom:8px;
+      font-size:14px;
+      font-weight:600;
+      color:#4a4f4f;
+      margin-bottom:6px;
+      text-transform:uppercase;
+      letter-spacing:0.08em;
     }
     .tabs-container {
       display:flex;
       flex-wrap:wrap;
       gap:8px 14px;
-      background:#f4f6f2;
-      border-radius:22px;
-      padding:10px 14px 12px;
+      background:#f8faf6;
+      border-radius:20px;
+      padding:8px 12px 10px;
       border:1px solid #d1e3d5;
     }
     .tabs-row {
@@ -132,34 +137,34 @@
       width:100%;
     }
     .tabs-row.top {
-      margin-bottom:6px;
-      border-bottom:1px solid rgba(0,0,0,0.03);
+      margin-bottom:4px;
+      border-bottom:1px solid rgba(0,0,0,0.035);
       padding-bottom:4px;
     }
     .tab {
       position:relative;
-      padding:7px 18px;
+      padding:6px 16px;
       cursor:pointer;
       border-radius:999px;
       background:transparent;
-      color:#333;
-      font-size:15px;
-      font-weight:600;
+      color:#38413b;
+      font-size:14px;
+      font-weight:500;
       border:1px solid transparent;
-      transition:background 0.12s ease-out,border-color 0.12s ease-out,color 0.12s ease-out;
+      transition:background 0.14s ease-out,border-color 0.14s ease-out,color 0.14s ease-out;
       white-space:nowrap;
     }
     .tab.primary {
-      color:#1e3b23;
+      color:#21462b;
     }
     .tab.secondary {
       color:#2f4d2f;
     }
     .tab.active {
-      background:#e2f6e6;
+      background:#e5f5e8;
       border-color:#2f8b3c;
-      color:#1e6126;
-      font-weight:700;
+      color:#1f6128;
+      font-weight:600;
     }
 
     /* MAIN */
@@ -177,68 +182,69 @@
     .page.active { display:block; }
 
     @keyframes fadeIn {
-      from { opacity:0; transform:translateY(8px);}
+      from { opacity:0; transform:translateY(6px);}
       to { opacity:1; transform:translateY(0);}
     }
 
     .page-title {
-      font-size:26px;
-      font-weight:640;
-      margin:18px 0 8px;
-      color:#000000;
+      font-size:24px;
+      font-weight:650;
+      margin:16px 0 6px;
+      color:#1e4227;
       display:flex;
       align-items:center;
-      gap:10px;
+      gap:8px;
     }
     .page-title span.block-name {
       color:var(--text-green);
-      font-weight:700;
+      font-weight:680;
     }
     .page-badge {
-      font-size:14px;
-      padding:4px 10px;
+      font-size:13px;
+      padding:3px 9px;
       border-radius:999px;
-      background:var(--green-soft);
-      color:var(--green-main-dark);
-      font-weight:650;
+      background:#ecf5ed;
+      color:#255730;
+      font-weight:560;
     }
     .page-subtitle {
-      font-size:16px;
-      font-weight:500;
+      font-size:15px;
+      font-weight:420;
       color:var(--text-muted);
       margin-bottom:18px;
       max-width:900px;
+      line-height:1.7;
     }
 
     /* THEMES: разные цвета карточек */
 
-    .page[data-theme="observation"] .card { background:var(--card-blue); }
-    .page[data-theme="emotion"] .card { background:var(--card-peach); }
-    .page[data-theme="attention"] .card { background:var(--card-green); }
-    .page[data-theme="silence"] .card { background:#fdf6ff; }
-    .page[data-theme="memory"] .card { background:var(--card-violet); }
-    .page[data-theme="nature"] .card { background:#f3fff4; }
+    .page[data-theme="observation"] .card { background:var(--card-observation); }
+    .page[data-theme="emotion"] .card { background:var(--card-emotion); }
+    .page[data-theme="attention"] .card { background:var(--card-attention); }
+    .page[data-theme="silence"] .card { background:var(--card-silence); }
+    .page[data-theme="memory"] .card { background:var(--card-memory); }
+    .page[data-theme="nature"] .card { background:var(--card-nature); }
 
     /* CARDS */
 
     .card {
       border-radius:var(--radius-big);
       box-shadow:var(--shadow-soft);
-      padding:16px 20px 16px;
-      border:1px solid rgba(0,0,0,0.03);
+      padding:16px 18px 16px;
+      border:1px solid rgba(0,0,0,0.02);
     }
-    .card + .card { margin-top:18px; }
+    .card + .card { margin-top:16px; }
 
     .exercise-header {
       display:flex;
-      align-items:baseline;
+      align-items:center;
       justify-content:space-between;
       gap:10px;
       margin-bottom:8px;
     }
     .exercise-title {
-      font-size:18px;
-      font-weight:650;
+      font-size:17px;
+      font-weight:620;
       color:var(--text-green);
       display:flex;
       align-items:center;
@@ -252,37 +258,44 @@
       width:26px;
       height:26px;
       border-radius:999px;
-      background:var(--green-soft);
+      background:#f5f0ff;
       display:flex;
       align-items:center;
       justify-content:center;
       font-size:16px;
-      color:var(--green-main-dark);
+      color:#6a4ac9;
     }
+
     .exercise-time {
       font-size:13px;
       padding:4px 10px;
       border-radius:999px;
-      background:var(--chip-green);
-      color:var(--green-main-dark);
+      background:var(--chip-time-bg);
+      color:var(--chip-time-text);
       display:inline-flex;
       align-items:center;
       gap:6px;
       white-space:nowrap;
-      font-weight:650;
+      font-weight:560;
+    }
+    .exercise-time::before {
+      content:"⏱️";
+      font-size:13px;
     }
 
     h3.section-label {
       margin:10px 0 4px;
-      font-size:15px;
-      font-weight:700;
+      font-size:14px;
+      font-weight:640;
       color:var(--text-blue);
+      text-transform:none;
+      letter-spacing:0.02em;
     }
 
     p, li {
-      font-size:16px;
+      font-size:15px;
       line-height:1.7;
-      font-weight:500;
+      font-weight:400;
     }
     ul {
       margin:4px 0 12px;
@@ -292,17 +305,18 @@
 
     .band {
       border-radius:var(--radius-med);
-      padding:8px 10px 8px;
-      margin-top:6px;
+      padding:8px 11px 9px;
+      margin-top:8px;
     }
-    .band-blue { background:var(--chip-blue-soft); }
-    .band-orange { background:var(--chip-orange); }
-    .band-violet { background:var(--chip-violet); }
+    .band-blue { background:var(--band-blue); }
+    .band-orange { background:var(--band-orange); }
+    .band-yellow { background:var(--band-yellow); }
+    .band-violet { background:var(--band-violet); }
 
     .band-title {
-      font-weight:700;
+      font-weight:640;
       margin-bottom:5px;
-      font-size:15px;
+      font-size:14px;
       color:var(--text-green);
     }
 
@@ -313,7 +327,7 @@
       margin-top:10px;
     }
     .info-card {
-      background:var(--bg-card);
+      background:#ffffff;
       border-radius:var(--radius-med);
       box-shadow:var(--shadow-soft);
       padding:10px 12px;
@@ -321,19 +335,19 @@
     }
     .info-card h3 {
       margin:0 0 4px;
-      font-size:15px;
+      font-size:14px;
       color:var(--text-green);
-      font-weight:700;
+      font-weight:620;
     }
     .info-card ul { padding-left:18px; margin:2px 0 4px; }
-    .info-card li { font-size:15px; }
+    .info-card li { font-size:14px; }
 
     .notice {
       margin-top:10px;
       padding:10px 14px;
       border-radius:12px;
-      background:var(--notice-bg);
-      border:1px solid var(--notice-border);
+      background:#fff7da;
+      border:1px solid #f2c76b;
       font-size:14px;
       line-height:1.6;
       display:flex;
@@ -348,19 +362,27 @@
     .notice-text { flex:1; }
 
     blockquote {
-      margin:8px 0;
-      padding-left:14px;
-      border-left:3px solid(var(--green-main));
+      margin:10px 0 8px;
+      padding:10px 14px;
+      border-left:4px solid #89b49b;
+      background:#f3f7f3;
       font-style:italic;
-      color:var(--text-muted);
-      font-size:15px;
+      color:#4c5750;
+      font-size:14px;
+      line-height:1.7;
+    }
+    blockquote footer {
+      margin-top:4px;
+      font-style:normal;
+      font-size:13px;
+      color:#7a837d;
     }
 
-    footer {
+    footer.page-footer {
       max-width:1160px;
       margin:0 auto;
-      padding:8px 18px 20px;
-      font-size:12px;
+      padding:8px 18px 22px;
+      font-size:13px;
       color:var(--text-muted);
       text-align:left;
     }
@@ -371,13 +393,13 @@
       .hero-inner { text-align:left; }
     }
     @media (max-width: 640px){
-      header.hero { padding:32px 16px 26px; }
-      .hero-title { font-size:28px; }
-      .hero-subtitle { font-size:15px; max-width:none; }
-      .page-title { font-size:22px; }
+      header.hero { padding:30px 16px 22px; }
+      .hero-title { font-size:26px; }
+      .hero-subtitle { font-size:14px; max-width:none; }
+      .page-title { font-size:21px; }
       .card { padding:14px 14px; }
       .tabs-container { padding:8px 10px; }
-      .tab { padding:6px 12px; font-size:14px; }
+      .tab { padding:5px 12px; font-size:13px; }
     }
 
     #plans .card div[style*="font-weight:700;"] {
@@ -403,7 +425,7 @@
 </header>
 
 <div class="tabs-wrap">
-  <div class="tabs-strip-label">Навигация по дневнику</div>
+  <div class="tabs-strip-label">НАВИГАЦИЯ ПО ДНЕВНИКУ</div>
   <div class="tabs-container">
     <div class="tabs-row top">
       <div class="tab primary active" data-page="intro">Введение</div>
@@ -476,6 +498,7 @@
           <div class="exercise-icon">⌚</div>
           Время и место
         </div>
+        <div class="exercise-time">10–20 минут · 3–5 раз в неделю</div>
       </div>
       <h3 class="section-label">Время</h3>
       <ul>
@@ -489,7 +512,7 @@
         <li>«Микро‑природа» дома: комнатные растения, вид на небо из окна, фотографии и видео природы, если выйти на улицу сейчас сложно.</li>
       </ul>
 
-      <div class="band band-orange">
+      <div class="band band-yellow">
         <div class="band-title">Практическая польза</div>
         <p>
           Регулярные короткие встречи с природой даже через окно постепенно формируют привычку замечать поддерживающие детали вместо постоянного фона тревоги и спешки.
@@ -538,7 +561,7 @@
         <li>Можно писать списком, ключевыми словами или короткими фразами.</li>
       </ul>
 
-      <div class="band band-orange">
+      <div class="band band-yellow">
         <div class="band-title">Практическая польза</div>
         <p>
           Повторяющийся шаблон записи снижает сопротивление: мозгу проще начинать, когда он знает, что делать сначала и чем закончить.
@@ -841,7 +864,8 @@
       <p><strong>Цель:</strong> развить осознанный выбор объекта внимания вместо автоматического ухода в экран.</p>
 
       <blockquote>
-        «То, на что мы обращаем внимание, в прямом смысле определяет нашу реальность».
+        «То, что я увижу, зависит от того, как именно и как долго я смотрю… То, на что мы обращаем внимание, в очень серьёзном смысле этого слова представляет нашу реальность».
+        <footer>— Дженни Одделл</footer>
       </blockquote>
 
       <div class="band band-blue">
@@ -1039,7 +1063,7 @@
           <div class="exercise-icon">🖊️</div>
           5.1. Нарисуй по памяти
         </div>
-        <div class="exercise-time">многодневное</div>
+        <div class="exercise-time">многодневное упражнение</div>
       </div>
       <p><strong>Цель:</strong> развить визуальную память и заметить, что именно остаётся в памяти после наблюдения.</p>
 
@@ -1193,7 +1217,7 @@
           <li>Смешивать блоки: наблюдение, эмоции, внимание.</li>
         </ul>
       </div>
-      <div class="band band-orange">
+      <div class="band band-yellow">
         <div class="band-title">Что отслеживать</div>
         <ul>
           <li>Изменения в уровне усталости и перегрузки.</li>
@@ -1217,7 +1241,7 @@
           <li>Добавить упражнения из блоков 4–6.</li>
         </ul>
       </div>
-      <div class="band band-orange">
+      <div class="band band-yellow">
         <div class="band-title">Что отслеживать</div>
         <ul>
           <li>Как меняется отношение к экранному времени.</li>
@@ -1262,12 +1286,11 @@
   </section>
 </main>
 
-<footer>
-  Творческий дневник наблюдений · вдохновлён натуралистическими дневниками, работами Дженни Одделл, Джона Лоуза, Беатрис Поттер и исследованиями внимания, embodied cognition и памяти.
+<footer class="page-footer">
+  Творческий дневник наблюдений. Арт‑прогулки. Автор Алина Сумченко
 </footer>
 
 <script>
-  // Инициализация вкладок: по клику показываем нужную страницу и подсвечиваем таб [file:1]
   const tabs = document.querySelectorAll(".tab");
   const pages = document.querySelectorAll(".page");
 
