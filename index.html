@@ -2,231 +2,344 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Творческий дневник наблюдений · art-walking</title>
+  <title>Творческий дневник наблюдений · art‑walking</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --green: #2f7d4f;
-      --green-dark: #255f3d;
-      --green-soft: #e5f3e9;
-      --bg: #f7f8f6;
-      --card: #ffffff;
-      --text: #1f2326;
-      --muted: #6f757a;
-      --border: #dde3da;
-      --radius: 12px;
-      --shadow: 0 10px 25px rgba(0,0,0,0.06);
+      --green-main: #2f7d4f;
+      --green-main-dark: #245b3a;
+      --green-soft: #e4f1e6;
+      --green-bg: #edf4ee;
+
+      --bg-page: #f5f7f4;
+      --bg-card: #ffffff;
+
+      --text-main: #222525;
+      --text-muted: #6f7377;
+
+      --border-soft: #dde3d7;
+      --shadow-soft: 0 18px 45px rgba(0,0,0,0.08);
+
+      --radius-big: 18px;
+      --radius-med: 12px;
+
+      --chip-blue: #e6f0ff;
+      --chip-blue-soft: #f0f5ff;
+      --chip-orange: #ffe9d3;
+      --chip-violet: #efe5ff;
+      --chip-green: #e3f5df;
     }
+
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      background: radial-gradient(circle at top left,#e4f0e7 0,#f7f7f5 40%,#f4f5f1 100%);
+      color: var(--text-main);
     }
+
+    /* ===== HERO ===== */
+
     .hero {
-      background: linear-gradient(135deg, #337f50, #4f9b63);
+      background: linear-gradient(130deg,#3a8553,#24593a);
       color: #fff;
-      padding: 22px 16px 18px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+      padding: 26px 18px 18px;
+      border-bottom-left-radius: 28px;
+      border-bottom-right-radius: 28px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content:"";
+      position:absolute;
+      right:-80px;
+      top:-60px;
+      width:260px;
+      height:260px;
+      background: radial-gradient(circle at 30% 30%,rgba(255,255,255,0.9),rgba(255,255,255,0));
+      opacity:0.35;
     }
     .hero-inner {
-      max-width: 1100px;
+      max-width: 1160px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
     .hero-title {
-      font-size: 26px;
-      font-weight: 700;
-      margin: 0 0 4px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-size:30px;
+      font-weight:750;
+      margin:0 0 6px;
+    }
+    .hero-logo {
+      width:40px;
+      height:40px;
+      border-radius:14px;
+      background: radial-gradient(circle at 25% 20%,#fffbe8 0,#f0cc7a 40%,#946230 100%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:22px;
+      box-shadow:0 0 0 2px rgba(255,255,255,0.7);
     }
     .hero-subtitle {
-      font-size: 14px;
-      opacity: 0.9;
+      margin:0;
+      font-size:15px;
+      max-width:760px;
+      line-height:1.5;
+      opacity:0.98;
     }
-    main {
-      max-width: 1100px;
+
+    /* ===== TABS ===== */
+
+    .tabs-wrap {
+      max-width: 1160px;
       margin: 0 auto;
-      padding: 14px 16px 30px;
+      padding: 0 18px;
+      margin-top: -8px;
     }
     .tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
-      margin-bottom: 16px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:20px;
+      font-size:15px;
+      padding:10px 18px 4px;
+      color:#eef8f0;
     }
     .tab {
-      padding: 10px 0 10px;
-      font-size: 14px;
-      cursor: pointer;
-      border-bottom: 3px solid transparent;
-      color: var(--muted);
-      white-space: nowrap;
+      position:relative;
+      padding-bottom:8px;
+      cursor:pointer;
+      opacity:0.78;
+      white-space:nowrap;
+      user-select:none;
+    }
+    .tab::after {
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      width:0;
+      height:3px;
+      border-radius:999px;
+      background:#ffe4a6;
+      transition:width 0.14s ease-out;
     }
     .tab.active {
-      border-bottom-color: #ffffff;
-      color: #ffffff;
-      font-weight: 600;
+      opacity:1;
+      font-weight:600;
     }
-    .tab-bar-wrap {
-      position: relative;
-      top: -36px;
-      padding: 0 16px 4px;
-    }
-    @media (max-width: 800px) {
-      .tab { font-size: 13px; }
+    .tab.active::after { width:100%; }
+
+    @media (max-width: 880px){
+      .tabs { font-size:14px; gap:14px; }
     }
 
-    .content-wrapper {
-      margin-top: -12px;
+    /* ===== MAIN ===== */
+
+    main {
+      max-width:1160px;
+      margin:0 auto;
+      padding:18px 18px 32px;
     }
+
     .page {
-      display: none;
-      animation: fadeIn 0.15s ease-out;
+      display:none;
+      animation:fadeIn 0.16s ease-out;
     }
-    .page.active { display: block; }
+    .page.active { display:block; }
+
     @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(4px);}
-      to {opacity: 1; transform: translateY(0);}
+      from { opacity:0; transform:translateY(8px);}
+      to { opacity:1; transform:translateY(0);}
     }
 
-    h2.page-title {
-      font-size: 20px;
-      margin: 10px 0 4px;
+    .page-title {
+      font-size:22px;
+      font-weight:700;
+      margin:6px 0 4px;
+      color:var(--green-main-dark);
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .page-badge {
+      font-size:13px;
+      padding:3px 8px;
+      border-radius:999px;
+      background:var(--green-soft);
+      color:var(--green-main-dark);
     }
     .page-subtitle {
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 14px;
+      font-size:15px;
+      color:var(--text-muted);
+      margin-bottom:16px;
+      max-width:860px;
     }
 
-    .exercise {
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 14px 16px 12px;
-      margin-bottom: 14px;
-      border: 1px solid rgba(0,0,0,0.03);
+    /* ===== CARDS ===== */
+
+    .card {
+      background:var(--bg-card);
+      border-radius:var(--radius-big);
+      box-shadow:var(--shadow-soft);
+      padding:14px 18px 14px;
+      border:1px solid rgba(0,0,0,0.02);
     }
+    .card + .card { margin-top:16px; }
+
     .exercise-header {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 6px;
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:6px;
     }
     .exercise-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--green-dark);
+      font-size:18px;
+      font-weight:650;
+      color:var(--green-main-dark);
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .exercise-icon {
+      width:26px;
+      height:26px;
+      border-radius:999px;
+      background:var(--green-soft);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:16px;
+      color:var(--green-main-dark);
     }
     .exercise-time {
-      font-size: 12px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: var(--green-soft);
-      color: var(--green-dark);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
+      font-size:13px;
+      padding:4px 10px;
+      border-radius:999px;
+      background:var(--chip-green);
+      color:var(--green-main-dark);
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      white-space:nowrap;
     }
     .exercise-meta {
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 6px;
+      font-size:13px;
+      color:var(--text-muted);
+      margin-bottom:6px;
     }
-    .exercise h3 {
-      font-size: 14px;
-      margin: 8px 0 4px;
+
+    h3.section-label {
+      margin:10px 0 4px;
+      font-size:14px;
+      font-weight:650;
     }
-    .exercise p {
-      font-size: 13px;
-      margin: 3px 0 5px;
-      line-height: 1.55;
+
+    p, li {
+      font-size:15px;
+      line-height:1.6;
     }
-    .exercise ul {
-      margin: 2px 0 6px;
-      padding-left: 18px;
+    ul {
+      margin:4px 0 10px;
+      padding-left:22px;
     }
-    .exercise li {
-      font-size: 13px;
-      margin-bottom: 3px;
+    li + li { margin-top:2px; }
+
+    .band {
+      border-radius:var(--radius-med);
+      padding:8px 10px 8px;
+      margin-top:6px;
+    }
+    .band-blue { background:var(--chip-blue-soft); }
+    .band-orange { background:var(--chip-orange); }
+    .band-violet { background:var(--chip-violet); }
+
+    .band-title {
+      font-weight:650;
+      margin-bottom:4px;
+      font-size:14px;
     }
 
     .tag-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 6px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      margin-top:8px;
     }
     .tag {
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: #f2f5f2;
-      color: var(--muted);
-      border: 1px solid rgba(0,0,0,0.04);
+      font-size:11px;
+      padding:4px 8px;
+      border-radius:999px;
+      background:#f3f5f2;
+      color:var(--text-muted);
+      border:1px solid rgba(0,0,0,0.04);
     }
-    .prompt-box {
-      border-radius: 10px;
-      border: 1px dashed var(--border);
-      padding: 8px 10px;
-      background: #fdfdfb;
-      font-size: 12px;
-      margin-top: 6px;
-      color: var(--muted);
-    }
-    .prompt-box strong { color: var(--green-dark); }
 
-    .two-col {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 12px;
-      margin-top: 10px;
+    .info-grid {
+      display:grid;
+      grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);
+      gap:14px;
+      margin-top:10px;
     }
-    @media (max-width: 900px) {
-      .two-col { grid-template-columns: minmax(0,1fr); }
+    @media (max-width: 880px){
+      .info-grid { grid-template-columns:minmax(0,1fr); }
     }
-    .note-card {
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 10px 12px;
-      font-size: 13px;
+    .info-card {
+      background:var(--bg-card);
+      border-radius:var(--radius-med);
+      box-shadow:var(--shadow-soft);
+      padding:10px 12px;
+      border:1px solid rgba(0,0,0,0.02);
     }
-    .note-card h3 {
-      margin: 0 0 4px;
-      font-size: 14px;
-      color: var(--green-dark);
+    .info-card h3 {
+      margin:0 0 4px;
+      font-size:15px;
+      color:var(--green-main-dark);
     }
-    .note-card ul {
-      margin: 4px 0 0;
-      padding-left: 16px;
-    }
+    .info-card ul { padding-left:18px; margin:2px 0 4px; }
+    .info-card li { font-size:14px; }
+
     footer {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 4px 16px 14px;
-      font-size: 11px;
-      color: var(--muted);
+      max-width:1160px;
+      margin:0 auto;
+      padding:6px 18px 18px;
+      font-size:12px;
+      color:var(--text-muted);
+      text-align:left;
+    }
+
+    @media (max-width: 640px){
+      .hero { padding-bottom:14px; }
+      .hero-title { font-size:24px; }
+      .hero-subtitle { font-size:14px; }
+      .page-title { font-size:20px; }
+      .card { padding:12px 14px; }
     }
   </style>
 </head>
 <body>
-  <!-- Шапка -->
+  <!-- HERO -->
   <header class="hero">
     <div class="hero-inner">
-      <h1 class="hero-title">Творческий дневник наблюдений</h1>
+      <div class="hero-title">
+        <div class="hero-logo">🌿</div>
+        <span>Творческий дневник наблюдений</span>
+      </div>
       <p class="hero-subtitle">
-        Восстановление когнитивных ресурсов через скетчинг, абстракцию, медленную ходьбу и осознанное взаимодействие с природой (art-walking).[web:8][web:93]
+        Восстановление когнитивных ресурсов через скетчинг, абстракцию, медленную ходьбу и осознанное взаимодействие с природой (art‑walking).
       </p>
     </div>
   </header>
 
-  <!-- Вкладки -->
-  <div class="tab-bar-wrap">
-    <div class="tabs" id="tabs">
+  <!-- TABS -->
+  <div class="tabs-wrap">
+    <nav class="tabs">
       <div class="tab active" data-page="intro">Введение</div>
       <div class="tab" data-page="block1">Блок 1: Наблюдение</div>
       <div class="tab" data-page="block2">Блок 2: Эмоции</div>
@@ -236,280 +349,768 @@
       <div class="tab" data-page="block6">Блок 6: Природа</div>
       <div class="tab" data-page="plans">Планы</div>
       <div class="tab" data-page="adapt">Адаптация</div>
-    </div>
+    </nav>
   </div>
 
   <main>
-    <div class="content-wrapper">
-      <!-- ВВЕДЕНИЕ -->
-      <section id="intro" class="page active">
-        <h2 class="page-title">О дневнике и трёх языках</h2>
-        <p class="page-subtitle">
-          Этот дневник объединяет слова, изображения и числа в духе nature journaling John Muir Laws и идей Jenny Odell об экономике внимания.[web:92][web:103]
-        </p>
+    <!-- ВВЕДЕНИЕ -->
+    <section id="intro" class="page active">
+      <h2 class="page-title">
+        📗 Введение
+        <span class="page-badge">слова · изображения · числа</span>
+      </h2>
+      <p class="page-subtitle">
+        Методичка опирается на натуралистические дневники, теорию восстановления внимания и идеи воплощённого познания, соединяя слова, рисунки и числа в одну практику [file:160][file:162].
+      </p>
 
-        <div class="two-col">
-          <div class="note-card">
-            <h3>Зачем это нужно</h3>
-            <ul>
-              <li>Снизить эффект цифровой перегрузки и рассеянного внимания.[web:8]</li>
-              <li>Поддерживать эмоциональные ресурсы через творчество.[web:7]</li>
-              <li>Укреплять связь с природой и телом (embodied cognition).[web:93]</li>
-            </ul>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>Исторический и научный контекст</h3>
+          <ul>
+            <li>Дневники Дарвина и других натуралистов сочетали текст, рисунок и измерения и требовали замедленного, глубокого внимания к месту [file:160].</li>
+            <li>Практики Beatrix Potter и современных botanical illustrators показывают, что повторное рисование развивает наблюдательность и визуальную память [file:160].</li>
+            <li>Современные исследования подтверждают, что рисование улучшает память сильнее, чем просто письмо, за счёт одновременной моторной, визуальной и пространственной активации [file:160].</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>Как вести дневник</h3>
+          <ul>
+            <li>Время: 10–20 минут в день, 3–5 раз в неделю как «природное назначение» [file:160].</li>
+            <li>Место: парк или лес; при недоступности — двор, балкон, окно или «микро‑природа» дома [file:160].</li>
+            <li>Структура записи: короткая фиксация состояния, блок наблюдения/рисования и 2–3 предложения рефлексии [file:160].</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="info-grid" style="margin-top:14px;">
+        <div class="info-card">
+          <h3>Материалы</h3>
+          <ul>
+            <li>Блокнот формата A5–A4, ручка или карандаш, по желанию цветные материалы [file:160].</li>
+            <li>Для расширенных упражнений — распечатанные геометрические фигуры и камера/смартфон для фото [file:160].</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>Безопасность и границы</h3>
+          <ul>
+            <li>Практика проводится в безопасных местах и не заменяет профессиональную психопомощь при серьёзных состояниях [file:160].</li>
+            <li>При усилении дискомфорта полезно сократить время, упростить упражнение и обсуждать опыт с психологом или преподавателем [file:160].</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- БЛОК 1 -->
+    <section id="block1" class="page">
+      <h2 class="page-title">🌱 Блок 1. Наблюдение за природой и скетчинг</h2>
+      <p class="page-subtitle">
+        Пять упражнений, которые тренируют избирательное внимание, визуальную дифференциацию и чувство встроенности в пространство [file:160][file:162].
+      </p>
+
+      <!-- 1.1 -->
+      <article class="card">
+        <div class="exercise-header">
+          <div class="exercise-title">
+            <div class="exercise-icon">👁️</div>
+            1.1. «Три текстуры»
           </div>
-          <div class="note-card">
-            <h3>Три языка дневника</h3>
-            <ul>
-              <li><strong>Слова</strong>: «Я замечаю…», «Меня удивляет…», «Это мне напоминает…».[web:92][web:134]</li>
-              <li><strong>Изображения</strong>: скетчи, схемы, диаграммы.[web:118]</li>
-              <li><strong>Числа</strong>: длина, высота, количество, время.[web:138]</li>
-            </ul>
-          </div>
+          <div class="exercise-time">10–15 минут</div>
+        </div>
+        <div class="exercise-meta">
+          Выбор трёх привлекающих фактур и их фиксация через скетч или фото с последующей прорисовкой [file:160].
         </div>
 
-        <div class="prompt-box">
-          <strong>Мини‑старт:</strong> посмотри в окно и сделай три строки «Я замечаю…», один маленький рисунок и одно число (сколько оттенков цвета или звуков ты различаешь).
+        <div class="band band-blue">
+          <div class="band-title">Ход упражнения</div>
+          <ul>
+            <li>Выйди в природное или полуприродное место и выбери три заметные текстуры: кору, лист, камень, мох, воду, облака и т.п. [file:160].</li>
+            <li>Вариант А: быстро скетчируй каждую фактуру прямо на месте по 2–3 минуты, отмечая ритм линий и светотень [file:160].</li>
+            <li>Вариант Б: сфотографируй текстуры и в любой паузе дня перерисуй их в дневнике, обращая внимание на повторения и контраст [file:160].</li>
+          </ul>
         </div>
-      </section>
 
-      <!-- БЛОК 1 -->
-      <section id="block1" class="page">
-        <h2 class="page-title">Блок 1. Наблюдение и скетчинг</h2>
-        <p class="page-subtitle">
-          Упражнения для тренировки избирательного внимания и визуальной памяти в природной и городской среде.
-        </p>
-
-        <article class="exercise">
-          <div class="exercise-header">
-            <div class="exercise-title">1.1. «Три текстуры»</div>
-            <div class="exercise-time">10–15 минут</div>
-          </div>
-          <div class="exercise-meta">
-            По мотивам ботанического рисунка и nature journaling (Beatrix Potter и современные практики).[web:3][web:113]
-          </div>
-          <h3>Ход упражнения</h3>
+        <div class="band band-orange">
+          <div class="band-title">Рефлексия</div>
           <ul>
-            <li>Выбери природное или полуприродное место (двор, парк, балкон).</li>
-            <li>Заметь три текстуры (кора, лист, камень, вода, облака и т.п.).</li>
-            <li>Сделай быстрые скетчи на месте или сфотографируй и перерисуй позже, отмечая ритм, светотень и форму.[web:113]</li>
+            <li>Какую текстуру было сложнее всего заметить и почему? [file:160]</li>
+            <li>Чем отличается внимание при рисовании от внимания при фотографировании? [file:160]</li>
+            <li>Что нового открылось о знакомом месте через это задание? [file:160]</li>
           </ul>
-          <div class="prompt-box">
-            <strong>Рефлексия:</strong> какая текстура была сложнее всего для передачи и почему?
-          </div>
-          <div class="tag-row">
-            <span class="tag">наблюдение</span>
-            <span class="tag">визуальная память</span>
-          </div>
-        </article>
+        </div>
 
-        <article class="exercise">
-          <div class="exercise-header">
-            <div class="exercise-title">1.2. «Изгиб линии: движение растения»</div>
-            <div class="exercise-time">10–15 минут</div>
+        <div class="band band-violet">
+          <div class="band-title">Когнитивный механизм</div>
+          <p>
+            Упражнение развивает удержание внимания на ограниченном наборе стимулов, тонкую визуальную дифференциацию и рабочую память образов, объединяя перцептивную, моторную и памятевую системы [file:160].
+          </p>
+        </div>
+      </article>
+
+      <!-- 1.2 -->
+      <article class="card">
+        <div class="exercise-header">
+          <div class="exercise-title">
+            <div class="exercise-icon">〰️</div>
+            1.2. «Изгиб линии: движение растения»
           </div>
-          <div class="exercise-meta">
-            По мотивам botanical drawing и концепции выразительной линии (W. Kandinsky).[web:12]
-          </div>
-          <h3>Ход упражнения</h3>
+          <div class="exercise-time">10–15 минут</div>
+        </div>
+        <div class="exercise-meta">
+          Передаём движение растения через абстрактные линии, соединяя наблюдение и экспрессию [file:160].
+        </div>
+
+        <div class="band band-blue">
+          <div class="band-title">Ход упражнения</div>
           <ul>
-            <li>Выбери ветку/траву, наблюдай изгиб и движение (ветер, гравитация).</li>
-            <li>Передай характер движения одной или несколькими линиями (плавные, прерывистые, спиральные), не рисуя растение буквально.</li>
+            <li>Найди ветку или траву, которая притягивает внимание, и рассмотри, как она изгибается и движется под ветром и гравитацией [file:160].</li>
+            <li>Не рисуя само растение, нарисуй несколько линий, отражающих его изгиб, скорость и напряжение, меняя толщину и ритм штриха [file:160].</li>
+            <li>Подпиши рядом ассоциации: с каким движением, существом или звуком связана эта линия [file:160].</li>
           </ul>
-        </article>
-      </section>
+        </div>
 
-      <!-- БЛОК 2 -->
-      <section id="block2" class="page">
-        <h2 class="page-title">Блок 2. Творческий дневник настроения и абстракции</h2>
-        <p class="page-subtitle">
-          Переработка эмоционального опыта через абстрактные изображения и цвет вместо вербальной румминации.
-        </p>
-
-        <article class="exercise">
-          <div class="exercise-header">
-            <div class="exercise-title">2.1. Дневник настроения + абстракция</div>
-            <div class="exercise-time">10–15 минут</div>
-          </div>
-          <div class="exercise-meta">
-            По мотивам арт‑терапевтических практик и концепции «мыслящей руки» (Juhani Pallasmaa).[web:2][web:7]
-          </div>
-          <h3>Ход упражнения</h3>
+        <div class="band band-orange">
+          <div class="band-title">Рефлексия</div>
           <ul>
-            <li><strong>Левая страница</strong>: краткая запись настроения (3–5 предложений) и одно ключевое слово.</li>
-            <li><strong>Правая страница</strong>: абстрактный рисунок эмоции 2–3 цветами (линии, круги, пятна, волны), внимание на ритм и давлении руки.</li>
-            <li>В конце одно предложение: «Эта абстракция — …».</li>
+            <li>Какие качества линии возникли сами собой: скорость, давление, прерывистость? [file:160]</li>
+            <li>Что чувствовалось в теле при рисовании этой линии? [file:160]</li>
+            <li>Чем эта абстракция отличается от фотографии растения? [file:160]</li>
           </ul>
-        </article>
+        </div>
 
-        <article class="exercise">
-          <div class="exercise-header">
-            <div class="exercise-title">2.3. «Каракули природы»</div>
-            <div class="exercise-time">5–10 минут</div>
+        <div class="band band-violet">
+          <div class="band-title">Когнитивный механизм</div>
+          <p>
+            Синтез анализа формы и движения с моторно‑эмоциональным выражением включает символическое мышление и отражает телесное состояние через качество линии [file:160].
+          </p>
+        </div>
+      </article>
+
+      <!-- 1.3 -->
+      <article class="card">
+        <div class="exercise-header">
+          <div class="exercise-title">
+            <div class="exercise-icon">🍃</div>
+            1.3. «Рисуем листья деревьев: что привлекает?»
           </div>
-          <div class="exercise-meta">
-            По мотивам nature journaling и упражнений «doodling diagrams».[web:99][web:108]
-          </div>
-          <h3>Ход упражнения</h3>
+          <div class="exercise-time">15–20 минут</div>
+        </div>
+        <div class="exercise-meta">
+          Серия быстрых контуров листьев с записью, почему каждый из них зацепил взгляд [file:160].
+        </div>
+
+        <div class="band band-blue">
+          <div class="band-title">Ход упражнения</div>
           <ul>
-            <li>Смотри на линии природы (ветви, волны, облака, тени).</li>
-            <li>Делай «письмо без букв»: каракули, петли, сетки, волны, пятна, не стремясь к сюжету или красоте.[web:99]</li>
-            <li>Добавь слова‑метки («ломкая», «текучая») и числа (количество повторов, примерная длина штриха).[web:138]</li>
+            <li>Выбери 3–5 листьев разных форм и размеров и быстро обведи их контуры с прожилками без проработки деталей [file:160].</li>
+            <li>Рядом с каждым листом запиши в 1–2 строках, почему он привлёк внимание (форма, цвет, прозрачноcть, размер, движение) [file:160].</li>
+            <li>При желании нарисуй один и тот же лист три раза подряд: сначала только форму, затем прожилки, затем детали и тени [file:160].</li>
           </ul>
-        </article>
-      </section>
+        </div>
 
-      <!-- БЛОК 3 -->
-      <section id="block3" class="page">
-        <h2 class="page-title">Блок 3. Внимание и цифровая нагрузка</h2>
-        <p class="page-subtitle">
-          Упражнения по мотивам Jenny Odell, помогающие переадресовать внимание с экрана в сторону тела и природы.
-        </p>
-
-        <article class="exercise">
-          <div class="exercise-header">
-            <div class="exercise-title">3.1. «Переадресация внимания»</div>
-            <div class="exercise-time">5–10 минут</div>
-          </div>
-          <div class="exercise-meta">
-            По мотивам книги Jenny Odell «How to Do Nothing: Resisting the Attention Economy».[web:137][web:103]
-          </div>
-          <h3>Ход упражнения</h3>
+        <div class="band band-orange">
+          <div class="band-title">Рефлексия</div>
           <ul>
-            <li>В момент тяги к телефону выйти к окну/на улицу с дневником.</li>
-            <li>Записать: «Куда тянется моё внимание по привычке?» и «На что я выбираю обратить внимание вместо этого?».</li>
-            <li>3–5 минут фиксировать запахи, звуки, цвета и телесные ощущения списком.[web:109]</li>
+            <li>Что общего у листьев, которые оказались привлекательными? [file:160]</li>
+            <li>Изменилось ли отношение к листьям после рисования? [file:160]</li>
+            <li>Какие детали проявились только на третьем скетче? [file:160]</li>
           </ul>
-        </article>
-      </section>
+        </div>
 
-      <!-- БЛОК 4 -->
-      <section id="block4" class="page">
-        <h2 class="page-title">Блок 4. Тишина, одиночество и «ничегонеделание»</h2>
-        <p class="page-subtitle">
-          Практики, создающие пространство для внутреннего слушания и восстановления ресурсов.
-        </p>
+        <div class="band band-violet">
+          <div class="band-title">Когнитивный механизм</div>
+          <p>
+            Упражнение сочетает избирательное внимание, укрепление визуальной памяти через повторные скетчи и метакогнитивное осознание собственных предпочтений [file:160].
+          </p>
+        </div>
+      </article>
 
-        <article class="exercise">
-          <div class="exercise-header">
-            <div class="exercise-title">4.1. «10 минут без цели»</div>
-            <div class="exercise-time">10 минут</div>
+      <!-- 1.4 -->
+      <article class="card">
+        <div class="exercise-header">
+          <div class="exercise-title">
+            <div class="exercise-icon">🪟</div>
+            1.4. «Медленное окно»
           </div>
-          <div class="exercise-meta">
-            По мотивам Jenny Odell и У. Дересевича («Solitude and Leadership»).[web:100][web:139]
-          </div>
-          <h3>Ход упражнения</h3>
+          <div class="exercise-time">10–15 минут</div>
+        </div>
+        <div class="exercise-meta">
+          Используем даже вид из окна как ресурс мягкого внимания и восстановления [file:160].
+        </div>
+
+        <div class="band band-blue">
+          <div class="band-title">Ход упражнения</div>
           <ul>
-            <li>Найти место с природной составляющей, отложить задачи и экран на 10 минут.</li>
-            <li>Просто быть: сидеть/медленно ходить, позволять вниманию блуждать.</li>
-            <li>После — коротко записать, как двигались мысли и какое ощущение осталось.[web:100]</li>
+            <li>Сядь напротив окна с видом на деревья, небо, птиц или смешанную среду и выбери один объект для наблюдения [file:160].</li>
+            <li>Пять минут просто смотри на него, замечая движение, свет, звуки и телесные ощущения, не записывая [file:160].</li>
+            <li>Затем сделай маленький скетч объекта и краткую запись «я заметил…», «что изменилось», «как двигалось внимание» [file:160].</li>
           </ul>
-        </article>
+        </div>
 
-        <article class="exercise">
-          <div class="exercise-header">
-            <div class="exercise-title">4.4. «Очень медленная прогулка»</div>
-            <div class="exercise-time">10–15 минут</div>
-          </div>
-          <div class="exercise-meta">
-            Адаптировано из рутины «I Notice, I Wonder, It Reminds Me Of» и mindful walking.[web:92][web:90]
-          </div>
-          <h3>Ход упражнения</h3>
+        <div class="band band-orange">
+          <div class="band-title">Рефлексия</div>
           <ul>
-            <li>Выбрать короткий безопасный маршрут и идти очень медленно.</li>
-            <li>Про себя повторять: «Я замечаю…», «Меня удивляет…», «Это мне напоминает…».[web:92]</li>
-            <li>После прогулки записать по 3–5 пунктов к каждой фразе с маленькими скетчами и числами.[web:93]</li>
+            <li>Удалось ли удерживать фокус на одном объекте? [file:160]</li>
+            <li>Какие мысли помогали, а какие отвлекали от наблюдения? [file:160]</li>
+            <li>Как изменилось ощущение напряжения в теле после практики? [file:160]</li>
           </ul>
-        </article>
-      </section>
+        </div>
 
-      <!-- БЛОК 5 -->
-      <section id="block5" class="page">
-        <h2 class="page-title">Блок 5. Память и перерисовывание</h2>
-        <p class="page-subtitle">
-          Развитие визуальной памяти и понимание, как мозг хранит и трансформирует наблюдения.
-        </p>
+        <div class="band band-violet">
+          <div class="band-title">Когнитивный механизм</div>
+          <p>
+            Практика переводит внимание из режима цифровой многозадачности в мягкую захватываемость, соединяя внешний фокус с интероцептивным осознанием [file:160].
+          </p>
+        </div>
+      </article>
 
-        <article class="exercise">
-          <div class="exercise-header">
-            <div class="exercise-title">5.1. «Нарисуй по памяти»</div>
-            <div class="exercise-time">2 дня по 10–15 минут</div>
+      <!-- 1.5 -->
+      <article class="card">
+        <div class="exercise-header">
+          <div class="exercise-title">
+            <div class="exercise-icon">🗺️</div>
+            1.5. «Микро‑пейзаж: карта присутствия»
           </div>
-          <div class="exercise-meta">
-            Адаптировано из «Memory Drawing» и подходов John Muir Laws.[web:11][web:134]
-          </div>
-          <h3>Ход упражнения</h3>
+          <div class="exercise-time">15–20 минут</div>
+        </div>
+        <div class="exercise-meta">
+          Рисуем маленькую карту пространства, отмечая своё место и наблюдаемые элементы [file:160].
+        </div>
+
+        <div class="band band-blue">
+          <div class="band-title">Ход упражнения</div>
           <ul>
-            <li>День 1: внимательно рассмотреть объект (лист, камень, цветок) и нарисовать по памяти.</li>
-            <li>День 2: посмотреть снова, нарисовать второй вариант, отметить, что забыто или искажено.[web:11]</li>
+            <li>Выбери участок 1–2 метра (клумба, угол двора, вид из окна) и отметь мысленные границы микро‑пейзажа [file:160].</li>
+            <li>Сверху нарисуй схему: где растения, камни, тропинки и где находишься ты, добавив стрелки ветра, штриховку света и небольшие цифры [file:160].</li>
+            <li>При наличии времени возвращайся в то же место через несколько дней и обновляй карту, фиксируя изменения [file:160].</li>
           </ul>
-        </article>
-      </section>
+        </div>
 
-      <!-- БЛОК 6 -->
-      <section id="block6" class="page">
-        <h2 class="page-title">Блок 6. Природа: «Я замечаю…»</h2>
-        <p class="page-subtitle">
-          Углублённое взаимодействие с природой через три языка дневника и рутину John Muir Laws «I Notice, I Wonder, It Reminds Me Of».[web:92][web:134]
-        </p>
-
-        <article class="exercise">
-          <div class="exercise-header">
-            <div class="exercise-title">6.1. «Я замечаю… Я замечаю… Я замечаю…»</div>
-            <div class="exercise-time">10–15 минут</div>
-          </div>
-          <div class="exercise-meta">
-            Адаптировано из активности «I Notice, I Wonder, It Reminds Me Of» (John Muir Laws, Emilie Lygren, How to Teach Nature Journaling).[web:105][web:134]
-          </div>
-          <h3>Ход упражнения</h3>
+        <div class="band band-orange">
+          <div class="band-title">Рефлексия</div>
           <ul>
-            <li>Выбрать место в природе или с видом на природу.</li>
-            <li>3–5 минут мягко повторять фразу «Я замечаю…», каждый раз добавляя новую деталь.[web:92]</li>
-            <li>Заполнить страницу тремя языками: слова (список «я замечаю»), изображения (скетчи и схемы) и числа (длина, высота, количество, время).[web:138]</li>
-            <li>По желанию добавить «Меня удивляет…» и «Это мне напоминает…».[web:93]</li>
+            <li>Как меняется ощущение себя в этом месте, когда рисуешь его схему? [file:160]</li>
+            <li>Появилось ли чувство большей встроенности в пространство? [file:160]</li>
+            <li>Какие детали стали видны только при рисовании карты? [file:160]</li>
           </ul>
-        </article>
-      </section>
+        </div>
 
-      <!-- ПЛАНЫ -->
-      <section id="plans" class="page">
-        <h2 class="page-title">Недельные планы</h2>
-        <p class="page-subtitle">
-          Примеры мягкого и интенсивного расписания практик art-walking.
-        </p>
-        <article class="exercise">
-          <div class="exercise-header">
-            <div class="exercise-title">План «мягкий старт»</div>
-            <div class="exercise-time">3–4 раза в неделю</div>
-          </div>
-          <ul>
-            <li>Пн: 1.1 «Три текстуры».[web:3]</li>
-            <li>Ср: 3.1 «Переадресация внимания».[web:103]</li>
-            <li>Пт: 4.1 «10 минут без цели».[web:100]</li>
-            <li>Вс: 5.1 «Нарисуй по памяти».[web:11]</li>
-          </ul>
-        </article>
-      </section>
+        <div class="band band-violet">
+          <div class="band-title">Когнитивный механизм</div>
+          <p>
+            Упражнение развивает пространственное мышление, интеграцию телесных и пространственных ощущений и причинно‑следственное видение изменений среды [file:160].
+          </p>
+        </div>
+      </article>
+    </section>
 
-      <!-- АДАПТАЦИЯ -->
-      <section id="adapt" class="page">
-        <h2 class="page-title">Адаптация под разные группы</h2>
-        <p class="page-subtitle">
-          Какие упражнения выбирать студентам, людям с тревогой, подросткам, людям с СДВГ и пожилым.
-        </p>
-        <article class="exercise">
-          <div class="exercise-header">
-            <div class="exercise-title">Студенты с высоким экранным временем</div>
+    <!-- БЛОК 2 -->
+    <section id="block2" class="page">
+      <h2 class="page-title">🎨 Блок 2. Творческий дневник настроения и абстракции</h2>
+      <p class="page-subtitle">
+        Эмоциональная рефлексия через цвет и простые формы помогает выйти из вербального «переживания по кругу» [file:160][file:162].
+      </p>
+
+      <!-- 2.1 -->
+      <article class="card">
+        <div class="exercise-header">
+          <div class="exercise-title">
+            <div class="exercise-icon">📒</div>
+            2.1. «Дневник настроения + абстракция»
           </div>
+          <div class="exercise-time">10–20 минут вечером</div>
+        </div>
+        <div class="exercise-meta">
+          Левая страница — слова о дне, правая — абстрактное изображение эмоции выбранными цветами [file:160].
+        </div>
+
+        <div class="band band-blue">
+          <div class="band-title">Ход упражнения</div>
           <ul>
-            <li>Приоритет: 3.1, 3.3, 2.1; короткие сессии 10–15 минут 3 раза в неделю.[web:8]</li>
+            <li>На левой странице кратко опиши день и главное чувство, выбрав одно ключевое слово [file:160].</li>
+            <li>На правой странице нарисуй абстракцию эмоции 2–3 цветами, используя линии, пятна, круги и волны без сюжета [file:160].</li>
+            <li>Обрати внимание на ритм, давление руки и скорость штрихов, а затем сформулируй одну фразу: «Эта абстракция — …» [file:160].</li>
+            <li>Если с абстракцией сложно, собери композицию из цветных фигур, сфотографируй или вклей в дневник и подпиши, почему она про тебя [file:160].</li>
           </ul>
-        </article>
-      </section>
-    </div>
+        </div>
+
+        <div class="band band-orange">
+          <div class="band-title">Рефлексия</div>
+          <ul>
+            <li>Какие цвета ты выбрал и почему именно они связаны с днём? [file:160]</li>
+            <li>Какой элемент композиции кажется главным: крупная фигура, центр или отдельный цвет? [file:160]</li>
+            <li>Изменилось ли состояние после рисования и на сколько по 10‑балльной шкале? [file:160]</li>
+          </ul>
+        </div>
+
+        <div class="band band-violet">
+          <div class="band-title">Когнитивный механизм</div>
+          <p>
+            Задание переключает от руминации к сенсомоторной переработке эмоций, активируя образный и телесный уровни и снижая внутреннюю оценку [file:160].
+          </p>
+        </div>
+      </article>
+
+      <!-- 2.2 -->
+      <article class="card">
+        <div class="exercise-header">
+          <div class="exercise-title">
+            <div class="exercise-icon">🎨</div>
+            2.2. «Три цвета дня»
+          </div>
+          <div class="exercise-time">5–10 минут вечером</div>
+        </div>
+        <div class="exercise-meta">
+          Короткая ежедневная палитра, которая фиксирует эмоциональный тон дня через три цвета [file:160].
+        </div>
+
+        <div class="band band-blue">
+          <div class="band-title">Ход упражнения</div>
+          <ul>
+            <li>Под конец дня выбери три цвета: основной тон, момент контраста и что‑то скрытое или неожиданное [file:160].</li>
+            <li>Нарисуй три простых цветовых пятна и подпиши под каждым слово или фразу о содержании этого цвета, при желании добавь интенсивность от 1 до 10 [file:160].</li>
+            <li>Раз в неделю просматривай палитры семи дней и отмечай, какие цвета и слова повторяются [file:160].</li>
+          </ul>
+        </div>
+
+        <div class="band band-orange">
+          <div class="band-title">Рефлексия</div>
+          <ul>
+            <li>Какой цвет недели оказался неожиданным или непривычным? [file:160]</li>
+            <li>Какие слова чаще всего появляются в подписях? [file:160]</li>
+            <li>Видны ли циклы — например, различия будней и выходных? [file:160]</li>
+          </ul>
+        </div>
+
+        <div class="band band-violet">
+          <div class="band-title">Когнитивный механизм</div>
+          <p>
+            Простая цветовая фиксация снижает когнитивную нагрузку вечером и постепенно развивает осознание собственных эмоциональных паттернов [file:160].
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <!-- БЛОК 3 -->
+    <section id="block3" class="page">
+      <h2 class="page-title">📱 Блок 3. Внимание и цифровая нагрузка</h2>
+      <p class="page-subtitle">
+        Практики по мотивам идей Дженни Одделл помогают переадресовывать внимание с экранов на живую среду и собственные установки [file:160][file:162].
+      </p>
+
+      <!-- 3.1 -->
+      <article class="card">
+        <div class="exercise-header">
+          <div class="exercise-title">
+            <div class="exercise-icon">🔌</div>
+            3.1. «Переадресация внимания»
+          </div>
+          <div class="exercise-time">5–10 минут</div>
+        </div>
+        <div class="exercise-meta">
+          Ловим момент тяги к телефону и переключаем его на наблюдение за окружающим [file:160].
+        </div>
+
+        <div class="band band-blue">
+          <div class="band-title">Ход упражнения</div>
+          <ul>
+            <li>Выбери типичный момент, когда рука тянется к экрану: после учёбы, в ожидании, перед сном [file:160].</li>
+            <li>Вместо телефона подойди к окну или выйди на балкон с дневником и запиши, куда тянется внимание по привычке и на что ты выбираешь смотреть сейчас [file:160].</li>
+            <li>В течение 3–5 минут списком фиксируй запахи, звуки, цвета, движения и телесные ощущения, затем сформулируй один вывод про день или неделю [file:160].</li>
+          </ul>
+        </div>
+
+        <div class="band band-orange">
+          <div class="band-title">Рефлексия</div>
+          <ul>
+            <li>Насколько сложно было не взять телефон? [file:160]</li>
+            <li>Какие детали оказались самыми живыми и интересными? [file:160]</li>
+            <li>Как изменилось состояние за эти несколько минут? [file:160]</li>
+          </ul>
+        </div>
+
+        <div class="band band-violet">
+          <div class="band-title">Когнитивный механизм</div>
+          <p>
+            Упражнение формирует опыт осознанного выбора объекта внимания и подчёркивает разницу между цифровым и природным режимами восприятия [file:160].
+          </p>
+        </div>
+      </article>
+
+      <!-- 3.2 -->
+      <article class="card">
+        <div class="exercise-header">
+          <div class="exercise-title">
+            <div class="exercise-icon">🔁</div>
+            3.2. «Дефолтная установка и переопределение»
+          </div>
+          <div class="exercise-time">15–20 минут</div>
+        </div>
+        <div class="exercise-meta">
+          Анализируем автоматическую установку в неприятной ситуации и создаём альтернативный фокус внимания [file:160].
+        </div>
+
+        <div class="band band-blue">
+          <div class="band-title">Ход упражнения</div>
+          <ul>
+            <li>Опиши коротко ситуацию, где обычно возникает раздражение: очередь, транспорт, шумный класс [file:160].</li>
+            <li>Ответь письменно на два вопроса: как выглядит установка по умолчанию и на что ещё можно было бы обратить внимание в этой же ситуации [file:160].</li>
+            <li>Нарисуй две маленькие абстракции: левая — текущий режим (напряжённый), правая — возможный альтернативный режим (более открытый) [file:160].</li>
+          </ul>
+        </div>
+
+        <div class="band band-orange">
+          <div class="band-title">Рефлексия</div>
+          <ul>
+            <li>Какая абстракция больше похожа на реальный опыт сейчас? [file:160]</li>
+            <li>Какой маленький шаг можно сделать, чтобы чаще оказываться во втором состоянии? [file:160]</li>
+          </ul>
+        </div>
+
+        <div class="band band-violet">
+          <div class="band-title">Когнитивный механизм</div>
+          <p>
+            Работа с установкой усиливает метакогнитивный контроль и переводит эмоциональные схемы в область осознанного выбора [file:160].
+          </p>
+        </div>
+      </article>
+
+      <!-- 3.3 -->
+      <article class="card">
+        <div class="exercise-header">
+          <div class="exercise-title">
+            <div class="exercise-icon">⏱️</div>
+            3.3. «Экранное время vs. природное время»
+          </div>
+          <div class="exercise-time">неделя наблюдений + 1 день эксперимента</div>
+        </div>
+        <div class="exercise-meta">
+          Сравниваем состояние после получаса экрана и получаса в природе и отслеживаем недельный паттерн [file:160].
+        </div>
+
+        <div class="band band-blue">
+          <div class="band-title">Ход упражнения</div>
+          <ul>
+            <li>В течение недели в конце дня отмечай приблизительное экранное время и изменения внимания, энергии и настроения [file:160].</li>
+            <li>В один день сделай эксперимент: 30 минут на экране и 30 минут в природе, каждый раз фиксируя внимание, энергию и настроение [file:160].</li>
+            <li>На развороте нарисуй или опиши состояние «после экрана» и «после природы», затем сделай короткое сравнение и выводы для своей рутины [file:160].</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <!-- БЛОК 4 -->
+    <section id="block4" class="page">
+      <h2 class="page-title">🕊️ Блок 4. Тишина, одиночество и «ничегонеделание»</h2>
+      <p class="page-subtitle">
+        Упражнения создают пространство для внутреннего слушания, медленной прогулки и внимательного слушания мира [file:160][file:162].
+      </p>
+
+      <!-- 4.1 -->
+      <article class="card">
+        <div class="exercise-header">
+          <div class="exercise-title">
+            <div class="exercise-icon">☁️</div>
+            4.1. «10 минут без цели»
+          </div>
+          <div class="exercise-time">10 минут</div>
+        </div>
+        <div class="exercise-meta">
+          Практика уединённого присутствия без задач и продуктивных целей [file:160].
+        </div>
+
+        <div class="band band-blue">
+          <div class="band-title">Ход упражнения</div>
+          <ul>
+            <li>Найди спокойное место с природной составляющей и на 10 минут отложи все задачи и устройства [file:160].</li>
+            <li>Сиди или ходи медленно, позволяя вниманию свободно блуждать, не оценивая мысли [file:160].</li>
+            <li>После времени зарисуй абстракцию этих 10 минут и кратко опиши, как двигалось внимание и что чаще всего всплывало [file:160].</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- 4.2 -->
+      <article class="card">
+        <div class="exercise-header">
+          <div class="exercise-title">
+            <div class="exercise-icon">🧱</div>
+            4.2. «Трещины в бетоне»
+          </div>
+          <div class="exercise-time">10–15 минут</div>
+        </div>
+        <div class="exercise-meta">
+          Находим следы природы и времени в городской среде и превращаем их в рисунок [file:160].
+        </div>
+
+        <div class="band band-blue">
+          <div class="band-title">Ход упражнения</div>
+          <ul>
+            <li>Выбери участок асфальта, стены или бетона с трещинами, мхом, листьями или ржавчиной [file:160].</li>
+            <li>Сделай скетч этого фрагмента, подчёркивая линии, пятна и маленькие элементы, а затем подпиши, что напоминают эти формы [file:160].</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- 4.3 -->
+      <article class="card">
+        <div class="exercise-header">
+          <div class="exercise-title">
+            <div class="exercise-icon">👂</div>
+            4.3. «Исследование слушания»
+          </div>
+          <div class="exercise-time">10–15 минут</div>
+        </div>
+        <div class="exercise-meta">
+          Практика внимательного слушания звуков и их фиксации в дневнике [file:160].
+        </div>
+
+        <div class="band band-blue">
+          <div class="band-title">Ход упражнения</div>
+          <ul>
+            <li>Сядь в тихом месте на улице или у окна и несколько минут прислушивайся к слоям звука: ближним, средним и дальним [file:160].</li>
+            <li>Запиши услышанные звуки списком и попробуй изобразить их линиями, точками или повторяющимися формами [file:160].</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- 4.4 -->
+      <article class="card">
+        <div class="exercise-header">
+          <div class="exercise-title">
+            <div class="exercise-icon">👣</div>
+            4.4. «Очень медленная прогулка»
+          </div>
+          <div class="exercise-time">10–15 минут</div>
+        </div>
+        <div class="exercise-meta">
+          Медленный маршрут с тройкой фраз «Я замечаю… / Меня удивляет… / Это мне напоминает…» [file:160].
+        </div>
+
+        <div class="band band-blue">
+          <div class="band-title">Ход упражнения</div>
+          <ul>
+            <li>Выбери короткий безопасный маршрут и иди гораздо медленнее обычного, замечая шаги и дыхание [file:160].</li>
+            <li>Во время ходьбы повторяй про себя «я замечаю…», «меня удивляет…», «это мне напоминает…», каждый раз добавляя конкретную деталь [file:160].</li>
+            <li>После прогулки запиши 3–5 пунктов для каждой фразы и при желании сделай маленькие скетчи увиденного [file:160].</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <!-- БЛОК 5 -->
+    <section id="block5" class="page">
+      <h2 class="page-title">🧠 Блок 5. Память и перерисовывание</h2>
+      <p class="page-subtitle">
+        Практика рисования по памяти и сравнения с реальностью помогает увидеть, как мозг сохраняет и трансформирует образы [file:160][file:162].
+      </p>
+
+      <!-- 5.1 -->
+      <article class="card">
+        <div class="exercise-header">
+          <div class="exercise-title">
+            <div class="exercise-icon">🖊️</div>
+            5.1. «Нарисуй по памяти»
+          </div>
+          <div class="exercise-time">2 дня по 10–15 минут</div>
+        </div>
+        <div class="exercise-meta">
+          Сначала рисуем объект по памяти, затем с натуры и сравниваем два изображения [file:160].
+        </div>
+
+        <div class="band band-blue">
+          <div class="band-title">День 1 (на природе)</div>
+          <ul>
+            <li>Выбери объект (цветок, лист, камень, ветку) и 3–5 минут внимательно рассматривай форму, детали и цвет [file:160].</li>
+            <li>Убери объект или отвернись и сразу нарисуй его по памяти, не подглядывая [file:160].</li>
+          </ul>
+        </div>
+
+        <div class="band band-blue" style="margin-top:8px;">
+          <div class="band-title">День 2+ (сравнение)</div>
+          <ul>
+            <li>Вернись к объекту или достань его и сравни рисунок по памяти с реальностью, отмечая забытое и преувеличенное [file:160].</li>
+            <li>Сделай второй набросок с прямого наблюдения и опиши разницу между двумя картинками [file:160].</li>
+          </ul>
+        </div>
+
+        <div class="band band-orange">
+          <div class="band-title">Рефлексия</div>
+          <ul>
+            <li>Как мозг запомнил объект: по форме, цвету, движению или общему ощущению? [file:160]</li>
+            <li>Какой рисунок нравится больше и почему? [file:160]</li>
+            <li>Чувствуешь ли изменения в визуальной памяти после повтора упражнения? [file:160]</li>
+          </ul>
+        </div>
+
+        <div class="band band-violet">
+          <div class="band-title">Когнитивный механизм</div>
+          <p>
+            Задание требует кодирования, удержания и извлечения образа, а сравнение с реальностью показывает, как восприятие интерпретируется и усиливает долговременную визуальную память [file:160].
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <!-- БЛОК 6 -->
+    <section id="block6" class="page">
+      <h2 class="page-title">🌿 Блок 6. Природа: «Я замечаю…»</h2>
+      <p class="page-subtitle">
+        Углублённое взаимодействие с природой через три языка дневника и рутину «Я замечаю / Меня удивляет / Это мне напоминает» по мотивам nature journaling John Muir Laws [file:160][file:162].
+      </p>
+
+      <!-- 6.1 -->
+      <article class="card">
+        <div class="exercise-header">
+          <div class="exercise-title">
+            <div class="exercise-icon">🔍</div>
+            6.1. «Я замечаю… Я замечаю… Я замечаю…»
+          </div>
+          <div class="exercise-time">10–15 минут</div>
+        </div>
+        <div class="exercise-meta">
+          Страница заполняется словами, изображениями и числами, отражающими наблюдения за природой [file:160].
+        </div>
+
+        <div class="band band-blue">
+          <div class="band-title">Ход упражнения</div>
+          <ul>
+            <li>Выбери место с видом на природу и 3–5 минут мягко повторяй фразу «я замечаю…», каждый раз добавляя новую деталь [file:160].</li>
+            <li>Заполни страницу тремя языками: списком фраз «я замечаю», маленькими скетчами и схемами и простыми числами (количество, длина, высота, время, интервалы) [file:160].</li>
+            <li>По желанию добавь строки «меня удивляет…» и «это мне напоминает…» [file:160].</li>
+          </ul>
+        </div>
+
+        <div class="band band-orange">
+          <div class="band-title">Рефлексия</div>
+          <ul>
+            <li>Как изменилось ощущение места после серии «я замечаю…»? [file:160]</li>
+            <li>Какой язык дневника оказался самым естественным: слова, рисунки или числа? [file:160]</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <!-- ПЛАНЫ -->
+    <section id="plans" class="page">
+      <h2 class="page-title">🗓️ Недельные планы</h2>
+      <p class="page-subtitle">
+        Два примера комбинирования упражнений: мягкий и более интенсивный режим практики [file:160][file:162].
+      </p>
+
+      <article class="card">
+        <div class="exercise-header">
+          <div class="exercise-title">
+            <div class="exercise-icon">🌱</div>
+            План 1. Мягкий старт (3–4 раза в неделю)
+          </div>
+        </div>
+        <ul>
+          <li>Пн: 1.1 «Три текстуры» (вариант Б — фото + перерисовка дома) [file:160].</li>
+          <li>Вт: 2.2 «Три цвета дня» вечером [file:160].</li>
+          <li>Ср: 3.1 «Переадресация внимания» в один из моментов тяги к телефону [file:160].</li>
+          <li>Пт: 4.1 «10 минут без цели» в парке или у окна [file:160].</li>
+          <li>Вс: 5.1 «Нарисуй по памяти» — можно использовать объект с понедельника [file:160].</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="exercise-header">
+          <div class="exercise-title">
+            <div class="exercise-icon">🌳</div>
+            План 2. Интенсивный (5 дней в неделю)
+          </div>
+        </div>
+        <ul>
+          <li>Пн: 1.2 «Изгиб линии» утром + 2.1 «Дневник настроения» вечером [file:160].</li>
+          <li>Вт: 1.3 «Рисуем листья» + 3.1 «Переадресация внимания» [file:160].</li>
+          <li>Ср: 1.4 «Медленное окно» + 2.2 «Три цвета дня» [file:160].</li>
+          <li>Чт: 1.5 «Микро‑пейзаж» + 3.2 «Дефолтная установка» [file:160].</li>
+          <li>Пт: 1.1 «Три текстуры» + 4.2 «Трещины в бетоне» [file:160].</li>
+          <li>Сб: 4.1 «10 минут без цели» + 5.1 «Нарисуй по памяти» [file:160].</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- АДАПТАЦИЯ -->
+    <section id="adapt" class="page">
+      <h2 class="page-title">👥 Адаптация для разных групп</h2>
+      <p class="page-subtitle">
+        Рекомендации, какие упражнения и форматы выбирать студентам, людям с тревогой, подросткам, людям с СДВГ и пожилым [file:160][file:162].
+      </p>
+
+      <article class="card">
+        <div class="exercise-header">
+          <div class="exercise-title">
+            <div class="exercise-icon">🎓</div>
+            Студенты с высоким экранным временем
+          </div>
+        </div>
+        <ul>
+          <li>Приоритет: 3.1 «Переадресация внимания», 3.3 «Экранное vs. природное время», 2.1 «Дневник настроения» [file:160].</li>
+          <li>Режим: минимум 3 раза в неделю по 10–15 минут в доступных местах (кампус, двор, балкон) [file:160].</li>
+          <li>Фокус мотивации: связь между снижением экранного времени и улучшением внимания, памяти и креативности в учёбе [file:160].</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="exercise-header">
+          <div class="exercise-title">
+            <div class="exercise-icon">💛</div>
+            Люди с повышенной тревожностью
+          </div>
+        </div>
+        <ul>
+          <li>Приоритет: 1.4 «Медленное окно», 4.1 «10 минут без цели», 4.3 «Исследование слушания» [file:160].</li>
+          <li>Режим: 1–2 раза в день по 10 минут в знакомых безопасных локациях [file:160].</li>
+          <li>Модификация: более чёткий план шага, чтобы снизить тревогу перед неопределённостью упражнения [file:160].</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="exercise-header">
+          <div class="exercise-title">
+            <div class="exercise-icon">🧷</div>
+            Подростки и молодёжь (13–25)
+          </div>
+        </div>
+        <ul>
+          <li>Приоритет: 1.2 «Изгиб линии», 2.1 «Дневник настроения», 3.2 «Дефолтная установка» [file:160].</li>
+          <li>Режим: 2–3 раза в неделю, можно выбирать упражнение под настроение [file:160].</li>
+          <li>Модификация: добавить элемент совместного рисования и делиться работами в безопасном пространстве [file:160].</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="exercise-header">
+          <div class="exercise-title">
+            <div class="exercise-icon">✨</div>
+            Люди с расстройствами внимания
+          </div>
+        </div>
+        <ul>
+          <li>Приоритет: 1.1 «Три текстуры», 1.3 «Рисуем листья», 3.1 «Переадресация внимания» [file:160].</li>
+          <li>Режим: короткие сессии 5–10 минут, но 4–5 раз в неделю [file:160].</li>
+          <li>Модификация: минимальный набор материалов и чёткие временные рамки с таймером [file:160].</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="exercise-header">
+          <div class="exercise-title">
+            <div class="exercise-icon">🌼</div>
+            Пожилые люди и лёгкие когнитивные нарушения
+          </div>
+        </div>
+        <ul>
+          <li>Приоритет: 1.1 «Три текстуры», 1.4 «Медленное окно», 5.1 «Нарисуй по памяти» [file:160].</li>
+          <li>Режим: 15–20 минут без спешки в близких и знакомых местах [file:160].</li>
+          <li>Модификация: крупные материалы и возможный социальный компонент — совместные прогулки и рисунки с близкими [file:160].</li>
+        </ul>
+      </article>
+    </section>
   </main>
 
   <footer>
-    Прототип интерактивного дневника наблюдений для проекта <strong>art-walking</strong>, вдохновлённый подходами Jenny Odell и John Muir Laws.[web:92][web:103]
+    Прототип интерактивного дневника наблюдений для проекта <strong>art‑walking</strong>, вдохновлённый практиками nature journaling, идеями Jenny Odell и John Muir Laws [file:160][file:162].
   </footer>
 
   <script>
